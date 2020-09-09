@@ -1,10 +1,11 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                    "North of you, the cave mount beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -49,3 +50,37 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+class Direction:
+    def __init__(self, direction):
+        self.direction = direction
+        
+    def __str__(self):
+        return self.direction
+class Game:
+    def __init__(self, current_room, directions):
+        self.current_room = current_room
+        self.directions: List[Direction] = directions
+    
+    def __str__(self):
+        return f'{self.current_room}: {[direction.direction for direction in self.directions]}'
+    
+    def print_start(self):
+        print(f"Your are in {self.current_room}")
+        print(f"Choose which way to go to next: ")
+        for i, direction in enumerate(self.directions):
+            print(f"{i+1}: {direction.direction}")
+
+game = Game('Main Lobby', [
+    Direction('n'),
+    Direction('e'),
+    Direction('s'),
+    Direction('w'),
+])
+
+# print('adv.py: ', game)
+
+while True:
+    game.print_start()
+    user_input = input("Choose a Direction or enter q to quite: \n")
+    print(f'You chose {game.directions[int(user_input)-1]}')
