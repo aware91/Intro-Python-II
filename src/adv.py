@@ -51,36 +51,17 @@ room['treasure'].s_to = room['narrow']
 #
 # If the user enters "q", quit the game.
 
-class Direction:
-    def __init__(self, direction):
-        self.direction = direction
+def game():
+    name = 'Word Game'
+    player = Player(name, room['outside'])
+    print(f'\nYou are playing a word game.')
+    
+    user_input = input(f'\nTo play game press "P" or to quit game press "Q": ')
+    
+    if user_input == "p":
+        print(f'\nYou are in {player.current_room.name}')
+    elif user_input != 'p':
+        print(f'Thanks for playing.')
         
-    def __str__(self):
-        return self.direction
-class Game:
-    def __init__(self, current_room, directions):
-        self.current_room = current_room
-        self.directions: List[Direction] = directions
-    
-    def __str__(self):
-        return f'{self.current_room}: {[direction.direction for direction in self.directions]}'
-    
-    def print_start(self):
-        print(f"Your are in {self.current_room}")
-        print(f"Choose which way to go to next: ")
-        for i, direction in enumerate(self.directions):
-            print(f"{i+1}: {direction.direction}")
 
-game = Game('Main Lobby', [
-    Direction('n'),
-    Direction('e'),
-    Direction('s'),
-    Direction('w'),
-])
-
-# print('adv.py: ', game)
-
-while True:
-    game.print_start()
-    user_input = input("Choose a Direction or enter q to quite: \n")
-    print(f'You chose {game.directions[int(user_input)-1]}')
+game()
