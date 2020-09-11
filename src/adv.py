@@ -38,19 +38,18 @@ room['treasure'].s_to = room['narrow']
 
 
 item = {
-    'coins':  Item("Item: ~~[Money", "--Just a few lose coins to take to the tavern]~~"),
-    'tools':  Item("Item: ~~[Grappling hook", "--This might come in handy. It is very heavy]~~"),
-    'jewel': Item("Item: ~~[Gem", "--Next time you ask that stranger for information. He might be willing to help for this type of payment]~~"),
-    'torch': Item("Item: ~~[Torch", "--Let there be light. Is someone sneaking around? Why is this on the floor?!?]~~"),
-    'medallion': Item("Item: ~~[Medallion", "--It reflects light and glows slightly orange it may be magical. There is an inscription in an unknown language. Inscription:Hul werud ezes ulud egembelu owog. Kyul buol engumet ullyetuk.]~~ "),
+    'sword':  'You have found a short sword.',
+    'chest':  "You have found the treasure chest.",
+    'candle': "Use this candle stick to light your way.",
+    'key': "Use this key to unlock the treasure chest.",
 }
 
 
 
-# room['foyer'].items = [str(item['coins'])]
-room['overlook'].items = [str(item['medallion'])]
-room['narrow'].items = [str(item['jewel'])]
-room['treasure'].items = [str(item['tools'])]
+room['foyer'].items = [str(item['candle'])]
+room['overlook'].items = [str(item['key'])]
+room['narrow'].items = [str(item['sword'])]
+room['treasure'].items = [str(item['chest'])]
 
 options = "\nOptions:\nInventory:[View]\nItem:[Take][Drop]\nDirections:[N][S][E][W]\nSystem:[Q] to Quit\n\n"
 directions={"n", "s", "e", "w"}
