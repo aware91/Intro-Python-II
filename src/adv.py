@@ -1,5 +1,7 @@
 from room import Room
 from player import Player
+from item import Item
+import sys
 
 # Declare all the rooms
 
@@ -34,6 +36,24 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
+item = {
+    'coins':  Item("Item: ~~[Money", "--Just a few lose coins to take to the tavern]~~"),
+    'tools':  Item("Item: ~~[Grappling hook", "--This might come in handy. It is very heavy]~~"),
+    'jewel': Item("Item: ~~[Gem", "--Next time you ask that stranger for information. He might be willing to help for this type of payment]~~"),
+    'torch': Item("Item: ~~[Torch", "--Let there be light. Is someone sneaking around? Why is this on the floor?!?]~~"),
+    'medallion': Item("Item: ~~[Medallion", "--It reflects light and glows slightly orange it may be magical. There is an inscription in an unknown language. Inscription:Hul werud ezes ulud egembelu owog. Kyul buol engumet ullyetuk.]~~ "),
+}
+
+
+
+# room['foyer'].items = [str(item['coins'])]
+room['overlook'].items = [str(item['medallion'])]
+room['narrow'].items = [str(item['jewel'])]
+room['treasure'].items = [str(item['tools'])]
+
+options = "\nOptions:\nInventory:[View]\nItem:[Take][Drop]\nDirections:[N][S][E][W]\nSystem:[Q] to Quit\n\n"
+directions={"n", "s", "e", "w"}
 #
 # Main
 #
@@ -59,9 +79,18 @@ def game():
     user_input = input(f'\nTo play game press "P" or to quit game press "Q": ')
     
     if user_input == "p":
-        print(f'\nYou are in {player.current_room.name}')
+        print(f'\nYou are in {player.current_room.name}. {player.current_room.description}')
     elif user_input != 'p':
         print(f'Thanks for playing.')
-        
+    
+    while user_input == 'p':
+        choice = input("Please choose an option: \n(n) North   (s) South \n(e) East   (w) West\n").lower().strip()
+        if choice in directions:
+            player.move(choice)
+        elif choice == 'h':
+            print(f"{options}")
+        elif choice == 'q':
+            print(f"\nThanks for Playing! GoodBye Adventurer {player.name}!")
+            sys.exit()
 
 game()
